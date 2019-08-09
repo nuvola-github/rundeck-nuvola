@@ -25,9 +25,10 @@ RUN apt-get -y install make \
     ruby-dev    
 
 RUN gem update --system
+RUN gem install ffi
 RUN gem install json --platform=ruby
-RUN gem install winrm -v 2.2.3
-RUN gem install winrm-fs -v 1.0.2
+RUN gem install winrm -v 2.3.2
+RUN gem install winrm-fs -v 1.3.2
 RUN gem install rubyntlm -v 0.6.2    
 
 ENV RD_WINRM='1.7.0'
