@@ -2,8 +2,7 @@ FROM rundeck/rundeck:3.1.0
 
 USER root
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu xenial-updates main restricted universe multiverse /" | sudo tee -a /etc/apt/sources.
-list
+RUN echo "deb http://archive.ubuntu.com/ubuntu xenial-updates main restricted universe multiverse /" | sudo tee -a /etc/apt/sources.list
 
 RUN apt-get clean && \
     apt-get autoclean && \
