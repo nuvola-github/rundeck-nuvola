@@ -17,6 +17,9 @@ RUN apt-get clean && \
     unzip \
     zip
 
+RUN apt-get -y install \
+    apt-utils
+
 RUN apt-get -y install make \
     ruby \
     ruby-dev    
