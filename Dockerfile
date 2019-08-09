@@ -20,7 +20,8 @@ RUN apt-get clean && \
 RUN apt-get -y install \
     apt-utils
 
-RUN apt-get -y install make \
+RUN apt-get -y install build-essential \
+    make \
     ruby \
     ruby-dev    
 
