@@ -33,7 +33,7 @@ RUN gem install winrm-fs -v 1.3.2
 RUN gem install rubyntlm -v 0.6.2    
 
 ENV RD_WINRM='1.7.0'
-RUN curl -L https://github.com/NetDocuments/rd-winrm-plugin/archive/$RD_WINRM.zip -o /var/lib/rundeck/libext/rd-winrm-plugin-$RD_WINRM.zip
+RUN curl -L https://github.com/NetDocuments/rd-winrm-plugin/archive/$RD_WINRM.zip -o /home/rundeck/libext/rd-winrm-plugin-$RD_WINRM.zip
 
 # install ansible
 RUN apt-get -y install sshpass && \
