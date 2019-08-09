@@ -24,6 +24,8 @@ RUN apt-get -y install make \
     ruby \
     ruby-dev    
 
+RUN gem update --system
+RUN gem install json --platform=ruby
 RUN gem install winrm -v 2.2.3
 RUN gem install winrm-fs -v 1.0.2
 RUN gem install rubyntlm -v 0.6.2    
