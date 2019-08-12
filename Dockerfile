@@ -47,9 +47,7 @@ RUN sudo -H pip3 --no-cache-dir install ansible
 RUN pip3 --no-cache-dir install "pywinrm>=0.3.0"
 
 
-RUN sudo rm -rf /var/lib/apt/lists/* \
-  && mkdir -p ${PROJECT_BASE}/etc/ \
-  && sudo mkdir /etc/ansible
+
 
 # installa le librerie winrm
 RUN gem install rake
@@ -69,17 +67,20 @@ ENV RDECK_BASE=/home/rundeck \
 ENV MANPATH=${MANPATH}:${RDECK_BASE}/docs/man
 ENV PATH=${PATH}:${RDECK_BASE}/tools/bin
 
+RUN mkdir ${RDECK_BASE}/ansible 
+
 # installa il plug-in per rundeck che consente l'invio di comandi a winrm
 RUN curl -L https://github.com/rundeck-plugins/py-winrm-plugin/releases/download/2.0.3/py-winrm-plugin-2.0.3.zip -o ${RDECK_BASE}/libext/py-winrm-plugin-2.0.3.zip
-
 # add locally built ansible plugin
 COPY --chown=rundeck:rundeck build/libs/ansible-plugin-*.jar ${RDECK_BASE}/libext/
 
-RUN mkdir /home/rundeck/ansible 
-
 # add default project
 ENV PROJECT_BASE=${RDECK_BASE}/projects/Test-Project
-RUN mkdir -p ${PROJECT_BASE}/etc/
+
+RUN sudo rm -rf /var/lib/apt/lists/* \
+  && mkdir -p ${PROJECT_BASE}/etc/ \
+  && sudo mkdir /etc/ansible
+  
 COPY --chown=rundeck:rundeck docker/project.properties ${PROJECT_BASE}/etc/
 
 VOLUME ["/home/rundeck/server/data"]
