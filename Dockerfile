@@ -34,7 +34,9 @@ RUN gem install rubyntlm -v 0.6.2
 
 # installa il plug-in per rundeck che consente l'invio di comandi a winrm
 ENV RD_WINRM='2.0.1'
-RUN curl -L https://github.com/NetDocuments/rd-winrm-plugin/archive/$RD_WINRM.zip -o /home/rundeck/libext/rd-winrm-plugin-$RD_WINRM.zip
+RUN curl -L https://s3.us-west-2.amazonaws.com/spark-repo-prod.rundeck.com/oss/signed/binary/59ed572534b2/2.0.1?AWSAccessKeyId=ASIA25B6VOWTLAKHFQWR&Expires=1565603213&Signature=wAdMqCcP0V83Nn2WCJihQh3H1to%3D&response-content-disposition=attachment%3B%20filename%3D%22py-winrm-plugin-2.0.1.zip%22&response-content-type=application%2Fzip&x-amz-security-token=AgoJb3JpZ2luX2VjEEkaCXVzLXdlc3QtMiJHMEUCIQCUxCsArtg8FY71JRFbLjCZx0j7kjbQ5auaJXByRKxDrgIgScoa4O0PdPz6Kqa7HkSFUFbIABdxCDaKK2jpjQ5GcvQqmQII0v%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw3NDk2MDMyMjI5NTAiDCI5a4UPJo4IND53eyrtAWkruTmuQI1F7LEsdtR7sJSXjIQpPRDo7bJ7%2F2ke3AK2nlPQeoGzR%2FaSwu%2Fki6tjtTxrn9nDY4aoRN0f84COlnJ5R0%2BgyyF1hhsEs5r6WVZOW%2BbRGTQhRnmtvOhRwI0E3Zqx89IoDbfPUOP5aLr7hXFY69XuyOvHmgA7wuv3pd%2FjlRZ%2BYYzm6CmrKyTWgyIYS2E9rMu3MD7xdut0kHBbx%2Ba7mHiBWUj9gwpslaZL%2F1EcCnAKKqQLnHzzbwnPhcWHVn4VIyU0S24JH3PMilJBC6HNgoHYf3g%2BsovkOvh2azFtbJVWIvHlg1b9J0S%2FIzD5xcTqBTq0ASmxXqtHZCEoI7bBgW2yli%2F9%2F79nZt8CsV316ffi1UMLqV8Ptmg%2B5yBHrNvt5u10%2BMN%2Bh2f7MIXPrR%2ByTucoNjH5XVUerDkXKa7bYPBHW8B5aZOgB6kh%2Fo2x2LP9m%2BHDkNwwJq6XOBdpktYke3Hg7%2FJU9PYOJaNBPuD6lNFLAKnRPXJJEK3wfnwK7bkkQH%2B6VOd181QuXYAYuFLtZlhkUwj2%2FgB%2FitKQNaWz1pVlLgqMVVQfpw%3D%3D -o /home/rundeck/libext/py-winrm-plugin-$RD_WINRM.zip
+#RUN curl -L https://github.com/NetDocuments/rd-winrm-plugin/archive/$RD_WINRM.zip -o /home/rundeck/libext/py-winrm-plugin-$RD_WINRM.zip
+
 
 # installa pip
 # installa supporto python ad winrm
