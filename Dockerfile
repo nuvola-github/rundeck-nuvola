@@ -38,14 +38,14 @@ RUN apt-get -y install \
 RUN apt-get -y --no-install-recommends install ca-certificates sshpass
 RUN apt-get -y --no-install-recommends install python3-pip python3-dev python-pip  
 
-# installa pip
+# intalla pip
+RUN  sudo -H pip3 --no-cache-dir install --upgrade pip setuptools
+
 # installa ansible 
-RUN pip3 --no-cache-dir install ansible 
+RUN sudo -H pip3 --no-cache-dir install ansible 
 # installa supporto python ad winrm
 RUN pip3 --no-cache-dir install "pywinrm>=0.3.0"
 
-RUN  sudo -H pip3 --no-cache-dir install --upgrade pip setuptools \
-  && sudo -H pip3 --no-cache-dir install ansible==2.7.9 
 
 RUN sudo rm -rf /var/lib/apt/lists/* \
   && mkdir -p ${PROJECT_BASE}/etc/ \
@@ -60,9 +60,6 @@ RUN gem install winrm-fs -v 1.3.2
 RUN gem install rubyntlm -v 0.6.2    
 RUN gem update --system
 
-# installa il plug-in per rundeck che consente l'invio di comandi a winrm
-RUN curl -L https://github.com/rundeck-plugins/py-winrm-plugin/releases/download/2.0.3/py-winrm-plugin-2.0.3.zip -o /home/rundeck/libext/py-winrm-plugin-2.0.3.zip
-
 
 USER rundeck
 
@@ -70,15 +67,15 @@ ENV RDECK_BASE=/home/rundeck \
     ANSIBLE_CONFIG=/home/rundeck/ansible/ansible.cfg \
     ANSIBLE_HOST_KEY_CHECKING=False
 ENV MANPATH=${MANPATH}:${RDECK_BASE}/docs/man
-
 ENV PATH=${PATH}:${RDECK_BASE}/tools/bin
-ENV MANPATH=${MANPATH}:${RDECK_BASE}/docs/man
+
+# installa il plug-in per rundeck che consente l'invio di comandi a winrm
+RUN curl -L https://github.com/rundeck-plugins/py-winrm-plugin/releases/download/2.0.3/py-winrm-plugin-2.0.3.zip -o ${RDECK_BASE}/libext/py-winrm-plugin-2.0.3.zip
 
 # add locally built ansible plugin
 COPY --chown=rundeck:rundeck build/libs/ansible-plugin-*.jar ${RDECK_BASE}/libext/
 
 RUN mkdir /home/rundeck/ansible 
-## eliminato perchè dava errore : && chown rundeck:rundeck /home/rundeck/ansible
 
 # add default project
 ENV PROJECT_BASE=${RDECK_BASE}/projects/Test-Project
