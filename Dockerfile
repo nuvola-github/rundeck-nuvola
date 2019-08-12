@@ -33,18 +33,19 @@ RUN gem install winrm-fs -v 1.3.2
 RUN gem install rubyntlm -v 0.6.2    
 
 # installa il plug-in per rundeck che consente l'invio di comandi a winrm
-RUN curl -L https://github.com/rundeck-plugins/py-winrm-plugin/releases/download/2.0.1/py-winrm-plugin-2.0.1.zip -o /home/rundeck/libext/py-winrm-plugin-2.0.1.zip
+RUN curl -L https://github.com/rundeck-plugins/py-winrm-plugin/releases/download/2.0.3/py-winrm-plugin-2.0.3.zip -o /home/rundeck/libext/py-winrm-plugin-2.0.3.zip
 
 # installa pip
 # installa supporto python ad winrm
 # installa ansible 
     
-RUN apt-get -y --no-install-recommends install ca-certificates python3-pip python-pip sshpass python-pip \
+RUN apt-get -y --no-install-recommends install ca-certificates python3-pip python-pip sshpass \
  && pip3 install --user --upgrade setuptools pip \
  && pip3 --no-cache-dir install ansible \
  && pip3 --no-cache-dir install "pywinrm>=0.3.0" \
- && rm -rf /var/lib/apt/lists/* \
- && mkdir /etc/ansible
+ 
+RUN rm -rf /var/lib/apt/lists/* 
+RUN mkdir /etc/ansible
 
 USER rundeck
 
