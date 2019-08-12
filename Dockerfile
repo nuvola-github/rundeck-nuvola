@@ -44,7 +44,6 @@ RUN apt-get -y --no-install-recommends install ca-certificates python3-pip sshpa
  && pip3 --no-cache-dir install ansible \
  && pip3 --no-cache-dir install "pywinrm>=0.3.0" \
  && rm -rf /var/lib/apt/lists/* \
- && mkdir -p ${PROJECT_BASE}/etc/ \
  && mkdir /etc/ansible
 
 USER rundeck
@@ -58,6 +57,7 @@ ENV PATH=${PATH}:${RDECK_BASE}/tools/bin
 
 # add default project
 ENV PROJECT_BASE=${RDECK_BASE}/projects/Test-Project
+RUN mkdir -p ${PROJECT_BASE}/etc/
 COPY --chown=rundeck:rundeck docker/project.properties ${PROJECT_BASE}/etc/
 
 # add locally built ansible plugin
