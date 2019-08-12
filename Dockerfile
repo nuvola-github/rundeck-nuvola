@@ -29,7 +29,7 @@ RUN apt-get -y install \
     ruby \
     ruby-dev   
     
-RUN apt-get -y --no-install-recommends install cryptography sshpass ca-certificates
+RUN apt-get -y --no-install-recommends install sshpass ca-certificates
 RUN apt-get -y --no-install-recommends install python3-pip python3-dev python-pip  
 
 # installa le librerie winrm
@@ -45,12 +45,11 @@ RUN gem update --system
 RUN curl -L https://github.com/rundeck-plugins/py-winrm-plugin/releases/download/2.0.3/py-winrm-plugin-2.0.3.zip -o /home/rundeck/libext/py-winrm-plugin-2.0.3.zip
 
 # installa pip
-# installa supporto python ad winrm
-# installa ansible 
-    
-RUN pip3 --no-cache-dir --user install --upgrade pip 
 RUN pip3 --no-cache-dir install setuptools 
+RUN pip3 --no-cache-dir --user install --upgrade pip 
+# installa ansible 
 RUN pip3 --no-cache-dir install ansible 
+# installa supporto python ad winrm
 RUN pip3 --no-cache-dir install "pywinrm>=0.3.0"
  
 RUN rm -rf /var/lib/apt/lists/* 
