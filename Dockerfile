@@ -49,8 +49,8 @@ ENV RDECK_BASE=/home/rundeck \
     ANSIBLE_CONFIG=/home/rundeck/ansible/ansible.cfg \
     ANSIBLE_HOST_KEY_CHECKING=False
 
-RUN mkdir /home/rundeck/ansible && \
-    chown rundeck:rundeck /home/rundeck/ansible
+RUN mkdir /home/rundeck/ansible 
+## && chown rundeck:rundeck /home/rundeck/ansible
 
 VOLUME ["/home/rundeck/server/data"]
 
