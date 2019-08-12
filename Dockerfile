@@ -33,7 +33,7 @@ RUN gem install winrm-fs -v 1.3.2
 RUN gem install rubyntlm -v 0.6.2    
 
 # installa il plug-in per rundeck che consente l'invio di comandi a winrm
-ENV RD_WINRM='1.7.0'
+ENV RD_WINRM='2.0.1'
 RUN curl -L https://github.com/NetDocuments/rd-winrm-plugin/archive/$RD_WINRM.zip -o /home/rundeck/libext/rd-winrm-plugin-$RD_WINRM.zip
 
 # installa pip
