@@ -25,6 +25,7 @@ RUN apt-get -y install build-essential \
 
 # installa le librerie winrm
 RUN gem update --system
+RUN gem install rake
 RUN gem install ffi
 RUN gem install json --platform=ruby
 RUN gem install winrm -v 2.3.2
@@ -38,9 +39,9 @@ RUN curl -L https://github.com/NetDocuments/rd-winrm-plugin/archive/$RD_WINRM.zi
 # installa pip
 # installa supporto python ad winrm
 # installa ansible 
-RUN apt-get -y --no-install-recommends install ca-certificates python3-pip sshpass python-pip \
+RUN apt-get -y --no-install-recommends install ca-certificates python3-pip sshpass python-pip 
  && pip3 --no-cache-dir install --upgrade pip setuptools \
- && pip3 --no-cache-dir install ansible && \
+ && pip3 --no-cache-dir install ansible \
  && pip3 --no-cache-dir install "pywinrm>=0.3.0" \
  && rm -rf /var/lib/apt/lists/* \
  && mkdir -p ${PROJECT_BASE}/etc/ \
