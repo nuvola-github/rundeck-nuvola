@@ -80,8 +80,8 @@ RUN sudo rm -rf /var/lib/apt/lists/* \
   && sudo mkdir /etc/ansible
 
 #COPY --chown=rundeck:rundeck   docker/project.properties ${PROJECT_BASE}/etc/
-COPY docker/project.properties ${PROJECT_BASE}/etc/
-RUN  sudo chown -R rundeck:rundeck ${PROJECT_BASE}/etc/
+#COPY docker/project.properties ${PROJECT_BASE}/etc/
+#RUN  sudo chown -R rundeck:rundeck ${PROJECT_BASE}/etc/
 
 # add locally built ansible plugin
 #COPY --chown=rundeck:rundeck   build/libs/ansible-plugin-*.jar ${RDECK_BASE}/libext/
