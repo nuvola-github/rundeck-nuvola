@@ -24,8 +24,8 @@ RUN apt-get -y install build-essential \
     ruby-dev    
 
 # installa le librerie winrm
-RUN gem update --system
 RUN gem install rake
+RUN gem update --system
 RUN gem install ffi
 RUN gem install json --platform=ruby
 RUN gem install winrm -v 2.3.2
@@ -40,9 +40,8 @@ RUN curl -L https://github.com/rundeck-plugins/py-winrm-plugin/releases/download
 # installa ansible 
     
 RUN apt-get -y --no-install-recommends install ca-certificates python3-pip python-pip sshpass \
- && pip3 install --user --upgrade setuptools pip \
  && pip3 --no-cache-dir install ansible \
- && pip3 --no-cache-dir install "pywinrm>=0.3.0" \
+ && pip3 --no-cache-dir install "pywinrm>=0.3.0"
  
 RUN rm -rf /var/lib/apt/lists/* 
 RUN mkdir /etc/ansible
