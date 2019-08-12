@@ -71,8 +71,6 @@ RUN mkdir ${RDECK_BASE}/ansible
 
 # installa il plug-in per rundeck che consente l'invio di comandi a winrm
 RUN curl -L https://github.com/rundeck-plugins/py-winrm-plugin/releases/download/2.0.3/py-winrm-plugin-2.0.3.zip -o ${RDECK_BASE}/libext/py-winrm-plugin-2.0.3.zip
-# add locally built ansible plugin
-COPY --chown=rundeck:rundeck build/libs/ansible-plugin-*.jar ${RDECK_BASE}/libext/
 
 # add default project
 ENV PROJECT_BASE=${RDECK_BASE}/projects/Test-Project
@@ -80,8 +78,15 @@ ENV PROJECT_BASE=${RDECK_BASE}/projects/Test-Project
 RUN sudo rm -rf /var/lib/apt/lists/* \
   && mkdir -p ${PROJECT_BASE}/etc/ \
   && sudo mkdir /etc/ansible
-  
-COPY --chown=rundeck:rundeck docker/project.properties ${PROJECT_BASE}/etc/
+
+#COPY --chown=rundeck:rundeck   docker/project.properties ${PROJECT_BASE}/etc/
+COPY docker/project.properties ${PROJECT_BASE}/etc/
+RUN  sudo chown -R rundeck:rundeck ${PROJECT_BASE}/etc/
+
+# add locally built ansible plugin
+#COPY --chown=rundeck:rundeck   build/libs/ansible-plugin-*.jar ${RDECK_BASE}/libext/
+COPY build/libs/ansible-plugin-*.jar ${RDECK_BASE}/libext/
+RUN  sudo chown -R rundeck:rundeck ${RDECK_BASE}/libext/
 
 VOLUME ["/home/rundeck/server/data"]
 
