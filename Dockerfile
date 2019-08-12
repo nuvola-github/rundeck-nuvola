@@ -12,6 +12,8 @@ RUN apt-get clean && \
     software-properties-common  \
     apt-transport-https \
     iputils-ping \
+    libssl-dev \ 
+    libffi-dev \
     openssh-server \
     netcat-traditional \
     unzip \
