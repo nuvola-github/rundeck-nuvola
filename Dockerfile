@@ -1,4 +1,9 @@
+# Ubuntu 16.04 based, runs as rundeck user
+# https://hub.docker.com/r/rundeck/rundeck/tags
 FROM rundeck/rundeck:3.1.0
+
+MAINTAINER Massimo Loporchio <loporchio.massimo@cssnet.it>
+
 
 USER root
 RUN echo "deb http://archive.ubuntu.com/ubuntu xenial-updates main restricted universe multiverse /" | sudo tee -a /etc/apt/sources.list
@@ -28,9 +33,23 @@ RUN apt-get -y install \
     make \
     ruby \
     ruby-dev   
-    
-RUN apt-get -y --no-install-recommends install sshpass ca-certificates
+
+  
+RUN apt-get -y --no-install-recommends install ca-certificates sshpass
 RUN apt-get -y --no-install-recommends install python3-pip python3-dev python-pip  
+
+# installa pip
+# installa ansible 
+RUN pip3 --no-cache-dir install ansible 
+# installa supporto python ad winrm
+RUN pip3 --no-cache-dir install "pywinrm>=0.3.0"
+
+RUN  sudo -H pip3 --no-cache-dir install --upgrade pip setuptools \
+  && sudo -H pip3 --no-cache-dir install ansible==2.7.9 
+
+RUN sudo rm -rf /var/lib/apt/lists/* \
+  && mkdir -p ${PROJECT_BASE}/etc/ \
+  && sudo mkdir /etc/ansible
 
 # installa le librerie winrm
 RUN gem install rake
@@ -44,22 +63,13 @@ RUN gem update --system
 # installa il plug-in per rundeck che consente l'invio di comandi a winrm
 RUN curl -L https://github.com/rundeck-plugins/py-winrm-plugin/releases/download/2.0.3/py-winrm-plugin-2.0.3.zip -o /home/rundeck/libext/py-winrm-plugin-2.0.3.zip
 
-# installa pip
-RUN pip3 --no-cache-dir install setuptools 
-RUN pip3 --no-cache-dir --user install --upgrade pip 
-# installa ansible 
-RUN pip3 --no-cache-dir install ansible 
-# installa supporto python ad winrm
-RUN pip3 --no-cache-dir install "pywinrm>=0.3.0"
- 
-RUN rm -rf /var/lib/apt/lists/* 
-RUN mkdir /etc/ansible
 
 USER rundeck
 
 ENV RDECK_BASE=/home/rundeck \
     ANSIBLE_CONFIG=/home/rundeck/ansible/ansible.cfg \
     ANSIBLE_HOST_KEY_CHECKING=False
+ENV MANPATH=${MANPATH}:${RDECK_BASE}/docs/man
 
 ENV PATH=${PATH}:${RDECK_BASE}/tools/bin
 ENV MANPATH=${MANPATH}:${RDECK_BASE}/docs/man
