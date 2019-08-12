@@ -39,8 +39,9 @@ RUN curl -L https://github.com/NetDocuments/rd-winrm-plugin/archive/$RD_WINRM.zi
 # installa pip
 # installa supporto python ad winrm
 # installa ansible 
-RUN apt-get -y --no-install-recommends install ca-certificates python3-pip sshpass python-pip \
- && pip3 --no-cache-dir install --upgrade pip setuptools \
+    
+RUN apt-get -y --no-install-recommends install ca-certificates python3-pip python-pip sshpass python-pip \
+ && pip3 install --upgrade pip
  && pip3 --no-cache-dir install ansible \
  && pip3 --no-cache-dir install "pywinrm>=0.3.0" \
  && rm -rf /var/lib/apt/lists/* \
