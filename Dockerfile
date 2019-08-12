@@ -39,7 +39,8 @@ RUN curl -L https://github.com/rundeck-plugins/py-winrm-plugin/releases/download
 # installa supporto python ad winrm
 # installa ansible 
     
-RUN apt-get -y --no-install-recommends install ca-certificates python3-pip python-pip sshpass setuptools \
+RUN apt-get -y --no-install-recommends install ca-certificates python3-pip python-pip sshpass \
+ && pip3 --no-cache-dir install setuptools \
  && pip3 --no-cache-dir install ansible \
  && pip3 --no-cache-dir install "pywinrm>=0.3.0"
  
