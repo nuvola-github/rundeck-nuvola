@@ -45,7 +45,7 @@ RUN  sudo -H pip3 --no-cache-dir install --upgrade pip setuptools
 RUN sudo -H pip3 --no-cache-dir install ansible 
 # installa supporto python ad winrm
 RUN pip3 --no-cache-dir install "pywinrm>=0.3.0"[credssp]
-RUN pip3 --no-cache-dir install requests-credssp[kerberos]
+#RUN pip3 --no-cache-dir install requests-credssp[kerberos]
 
 
 
