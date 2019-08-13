@@ -45,10 +45,7 @@ RUN  sudo -H pip3 --no-cache-dir install --upgrade pip setuptools
 RUN sudo -H pip3 --no-cache-dir install ansible 
 # installa supporto python ad winrm
 RUN pip3 --no-cache-dir install "pywinrm>=0.3.0"[credssp]
-RUN pip3 --no-cache-dir install requests-credssp
-
-
-
+RUN pip3 --no-cache-dir install requests-credssp --user
 
 # installa le librerie winrm
 RUN gem install rake
@@ -58,7 +55,6 @@ RUN gem install winrm -v 2.3.2
 RUN gem install winrm-fs -v 1.3.2
 RUN gem install rubyntlm -v 0.6.2    
 RUN gem update --system
-
 
 USER rundeck
 
