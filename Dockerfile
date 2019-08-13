@@ -85,8 +85,8 @@ RUN sudo rm -rf /var/lib/apt/lists/* \
 
 # add locally built ansible plugin
 #COPY --chown=rundeck:rundeck   build/libs/ansible-plugin-*.jar ${RDECK_BASE}/libext/
-COPY build/libs/ansible-plugin-*.jar ${RDECK_BASE}/libext/
-RUN  sudo chown -R rundeck:rundeck ${RDECK_BASE}/libext/
+#COPY build/libs/ansible-plugin-*.jar ${RDECK_BASE}/libext/
+#RUN  sudo chown -R rundeck:rundeck ${RDECK_BASE}/libext/
 
 VOLUME ["/home/rundeck/server/data"]
 
