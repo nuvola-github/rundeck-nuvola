@@ -4,11 +4,8 @@ FROM rundeck/rundeck:3.1.0
 
 MAINTAINER Massimo Loporchio <loporchio.massimo@cssnet.it>
 
-
 USER root
 RUN echo "deb http://archive.ubuntu.com/ubuntu xenial-updates main restricted universe multiverse /" | sudo tee -a /etc/apt/sources.list
-
-RUN echo "deb https://dl.bintray.com/rundeck/rundeck-deb /" | sudo tee -a /etc/apt/sources.list
 
 RUN apt-get clean && \
     apt-get autoclean && \
@@ -28,6 +25,7 @@ RUN apt-get -y install \
     zip
 
 # Installa il CLI di Rundeck per i backup
+RUN echo "deb https://dl.bintray.com/rundeck/rundeck-deb /" | sudo tee -a /etc/apt/sources.list
 RUN curl "https://bintray.com/user/downloadSubjectPublicKey?username=bintray" > /tmp/bintray.gpg.key
 RUN apt-key add - < /tmp/bintray.gpg.key
 RUN apt-get -y install apt-transport-https
