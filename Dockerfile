@@ -16,7 +16,6 @@ RUN apt-get clean && \
 RUN apt-get -y install \
     apt-utils \
     software-properties-common  \
-    apt-transport-https \
     iputils-ping \
     openssh-server \
     netcat-traditional \
@@ -28,7 +27,7 @@ RUN apt-get -y install \
 RUN echo "deb https://dl.bintray.com/rundeck/rundeck-deb /" | sudo tee -a /etc/apt/sources.list
 RUN curl "https://bintray.com/user/downloadSubjectPublicKey?username=bintray" > /tmp/bintray.gpg.key
 RUN apt-key add - < /tmp/bintray.gpg.key
-RUN apt-get -y install apt-transport-https
+RUN apt-get -y update
 RUN apt-get -y install rundeck-cli
 
 # installa requisiti per la build delle librerie winrm
