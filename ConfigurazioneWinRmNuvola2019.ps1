@@ -1,3 +1,8 @@
+
+# Eseguire queste righe in Powershell ISE 3.0
+
+set-executionpolicy remotesigned
+
 $url = "https://raw.githubusercontent.com/nuvola-github/rundeck-nuvola/master/ConfigureRemotingForAnsible.ps1"
 $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
 
