@@ -15,13 +15,6 @@ RUN apt-get clean && \
     apt-get autoremove && \
     apt-get -y update
 
-# Installa il CLI di Rundeck per i backup
-RUN curl "https://bintray.com/user/downloadSubjectPublicKey?username=bintray" > /tmp/bintray.gpg.key
-RUN apt-key add - < /tmp/bintray.gpg.key
-RUN apt-get -y install apt-transport-https
-RUN apt-get -y install rundeck-cli
-
-
 # intallazione requisiti ubuntu 
 RUN apt-get -y install \
     apt-utils \
@@ -30,8 +23,15 @@ RUN apt-get -y install \
     iputils-ping \
     openssh-server \
     netcat-traditional \
+    apt-transport-https \
     unzip \
     zip
+
+# Installa il CLI di Rundeck per i backup
+RUN curl "https://bintray.com/user/downloadSubjectPublicKey?username=bintray" > /tmp/bintray.gpg.key
+RUN apt-key add - < /tmp/bintray.gpg.key
+RUN apt-get -y install apt-transport-https
+RUN apt-get -y install rundeck-cli
 
 # installa requisiti per la build delle librerie winrm
 RUN apt-get -y install \
