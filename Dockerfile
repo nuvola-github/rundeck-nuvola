@@ -7,6 +7,7 @@ MAINTAINER Massimo Loporchio <loporchio.massimo@cssnet.it>
 USER root
 RUN echo "deb http://archive.ubuntu.com/ubuntu xenial-updates main restricted universe multiverse /" | sudo tee -a /etc/apt/sources.list
 
+# preparazione apt-get
 RUN apt-get clean && \
     apt-get autoclean && \
     apt-get autoremove && \
@@ -23,10 +24,11 @@ RUN apt-get -y install \
     unzip \
     zip
 
-# Installa il CLI di Rundeck per i backup
+# installa il CLI di Rundeck per i backup
 RUN echo "deb https://dl.bintray.com/rundeck/rundeck-deb /" | sudo tee -a /etc/apt/sources.list
 RUN curl "https://bintray.com/user/downloadSubjectPublicKey?username=bintray" > /tmp/bintray.gpg.key
 RUN apt-key add - < /tmp/bintray.gpg.key
+# fai ancora un update
 RUN apt-get -y update
 RUN apt-get -y install rundeck-cli
 
@@ -39,9 +41,9 @@ RUN apt-get -y install \
     make \
     ruby \
     ruby-dev   
-
   
 RUN apt-get -y --no-install-recommends install ca-certificates sshpass
+# installa python
 RUN apt-get -y --no-install-recommends install python3-pip python3-dev python-pip  
 
 # intalla pip
@@ -70,26 +72,30 @@ ENV RDECK_BASE=/home/rundeck \
 ENV MANPATH=${MANPATH}:${RDECK_BASE}/docs/man
 ENV PATH=${PATH}:${RDECK_BASE}/tools/bin
 
+# scarica configurazione di ansible
 RUN mkdir ${RDECK_BASE}/ansible 
+RUN curl -L "https://raw.githubusercontent.com/nuvola-github/rundeck-nuvola/master/ansible.cfg" > ${RDECK_BASE}/ansible/
+
+# crea link simbolico per "bug" rundeck
+RUN ln -s ${RDECK_BASE}/server/data/ ${RDECK_BASE}/data
 
 # installa il plug-in per rundeck che consente l'invio di comandi a winrm
 RUN curl -L https://github.com/rundeck-plugins/py-winrm-plugin/releases/download/2.0.3/py-winrm-plugin-2.0.3.zip -o ${RDECK_BASE}/libext/py-winrm-plugin-2.0.3.zip
 
 # add default project
 ENV PROJECT_BASE=${RDECK_BASE}/projects/Test-Project
-
-RUN sudo rm -rf /var/lib/apt/lists/* \
-  && mkdir -p ${PROJECT_BASE}/etc/ \
-  && sudo mkdir /etc/ansible
-
 #COPY --chown=rundeck:rundeck   docker/project.properties ${PROJECT_BASE}/etc/
 #COPY docker/project.properties ${PROJECT_BASE}/etc/
 #RUN  sudo chown -R rundeck:rundeck ${PROJECT_BASE}/etc/
-
 # add locally built ansible plugin
 #COPY --chown=rundeck:rundeck   build/libs/ansible-plugin-*.jar ${RDECK_BASE}/libext/
 #COPY build/libs/ansible-plugin-*.jar ${RDECK_BASE}/libext/
 #RUN  sudo chown -R rundeck:rundeck ${RDECK_BASE}/libext/
+
+# pulisci e fine
+RUN sudo rm -rf /var/lib/apt/lists/* \
+  && mkdir -p ${PROJECT_BASE}/etc/ \
+  && sudo mkdir /etc/ansible
 
 VOLUME ["/home/rundeck/server/data"]
 
