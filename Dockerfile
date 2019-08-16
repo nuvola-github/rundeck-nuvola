@@ -46,6 +46,9 @@ RUN apt-get -y --no-install-recommends install ca-certificates sshpass
 # installa python
 RUN apt-get -y --no-install-recommends install python3-pip python3-dev python-pip  
 
+# install git per poter replicare i progetti su gitlab-nuvola
+RUN apt-get -y --no-install-recommends install git-all
+
 # intalla pip
 RUN  sudo -H pip3 --no-cache-dir install --upgrade pip setuptools
 
