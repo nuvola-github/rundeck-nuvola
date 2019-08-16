@@ -1,5 +1,5 @@
-
-# Eseguire queste righe in Powershell ISE 3.0
+# Eseguire queste righe in Powershell ISE 4.0 
+# AVVIATO CON PERMESSI AMMINISTRATORE
 
 # Controlla che la versionedi powershell  sia almento 4.0
 $PSVersionTable
