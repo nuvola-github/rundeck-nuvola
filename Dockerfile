@@ -74,7 +74,7 @@ ENV PATH=${PATH}:${RDECK_BASE}/tools/bin
 
 # scarica configurazione di ansible
 RUN mkdir ${RDECK_BASE}/ansible 
-RUN curl -L "https://raw.githubusercontent.com/nuvola-github/rundeck-nuvola/master/ansible.cfg" > ${RDECK_BASE}/ansible/
+RUN curl -L "https://raw.githubusercontent.com/nuvola-github/rundeck-nuvola/master/ansible.cfg" > ${RDECK_BASE}/ansible/ansible.cfg
 
 # crea link simbolico per "bug" rundeck
 RUN ln -s ${RDECK_BASE}/server/data/ ${RDECK_BASE}/data
