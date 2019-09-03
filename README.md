@@ -9,7 +9,9 @@ ansible.cfg   : con figurazione di ansible
 
 inventory.ini : inventario di esempio per ansible formato ini
 
-ConfigurazioneWinRmNuvola2019.ps1 : Configurazione di WinRm per Powershell 4.0. Eseguire questo script sul pc client
+ConfigurazioneWinRmNuvola2019.ps1 : 
+
+Configurazione di WinRm per Powershell 3.0. Eseguire questo script sul pc client
 
 
 Nuvola 2019 (c) (r)
